@@ -1,0 +1,14 @@
+.HeaderBoardList__list {
+    margin: 0;
+    padding: 0;
+}
+
+.HeaderBoardList__list__item {
+    list-style-type: none;
+    display: inline;
+}
+
+.HeaderBoardList__list__item:not(:first-child):before {
+    /* props to David Cahill on SE for this trick, http://stackoverflow.com/a/11052387/996081 */
+    content: ' / ';
+}
