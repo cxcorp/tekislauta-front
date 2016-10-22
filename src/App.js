@@ -6,7 +6,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      data: {}
+      data: null
     };
   }
 
@@ -15,23 +15,38 @@ class App extends Component {
   }
   
   fetchBoards() {
-    const dummy = {
-      error: null,
-      data: {
-        boards: [
-          { abbreviation: 'a', name: 'Ayy Lmaos', description: 'toppest of keks' },
-          { abbreviation: 'b', name: 'Random', description: 'ayy lmao' },
-          { abbreviation: 'g', name: 'Technology', description: 'Galaxy 7 = Hand grenade' },
-        ]
+    fetch('/api/boards/').then(response => {
+      if (!response.ok) {
+        console.log("Response was not ok");
+        return;
       }
-    };
 
-    this.setState(dummy);
+      response.json().then(data => {
+        this.setState({ error: null, data: data });
+        console.info(data);
+      });
+    })
+    .catch(error => {
+      // TODO: ui
+      this.setState({ error: error, data: null });
+      console.error(error);
+    });
   }
 
   render() {
-    const boards = this.state.data.boards;
-    const abbreviations = (boards || []).map(b => b.abbreviation);
+    const boards = this.state.data || [];
+    let abbreviations = [];
+    let currentBoard = null;
+
+    if (boards) {
+      abbreviations = boards.map(b => b.abbreviation);
+      abbreviations = abbreviations.sort();
+
+      
+      const currentBoardAbbreviation = this.props.params.abbreviation;
+      console.log(boards);
+      currentBoard = boards.find(elem => elem.abbreviation === currentBoardAbbreviation);
+    }
 
     return (
       <div className="App">
@@ -41,7 +56,9 @@ class App extends Component {
           <h1>tekislauta</h1>
         </div>
         <div className="App-intro">
-          {this.props.children}
+          {this.props.children && React.cloneElement(this.props.children, {
+              currentBoard: currentBoard
+          })}
         </div>
       </div>
     );
