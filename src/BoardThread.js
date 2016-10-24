@@ -12,7 +12,7 @@ import React, {Component} from 'react';
 ]
 */
 class BoardThread extends Component {
-    render() {
+    render() {console.log(this.props);
         return (
             <div className='BoardThread'>
                 <h5>{this.props.data.subject}</h5>

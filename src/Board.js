@@ -31,13 +31,8 @@ class Board extends Component {
         }
         ]
         */
-        if (!this.props.currentBoard) {
-            console.log("Haven't finished loading boards yet, skipping fetch for this board's data");
-            // app hasn't finished loading board list
-            return;
-        }
 
-        fetch('/api/boards/' + this.props.currentBoard.id + '/posts/', (data, err) => {
+        fetch('/api/boards/' + this.props.params.abbreviation + '/posts/').then((data, err) => {
             if (err) {
                 // TODO: UI for API errors
                 console.error(err);
@@ -65,7 +60,7 @@ class Board extends Component {
         console.info("threads", this.state.threads);
         let threads = [];
         if (this.state.threads) {
-            threads = this.state.threads.map(thread => <BoardThread data='thread' />);
+            threads = this.state.threads.map(thread => <BoardThread data={thread} />);
         }
 
         return (
