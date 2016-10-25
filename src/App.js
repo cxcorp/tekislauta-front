@@ -36,26 +36,20 @@ class App extends Component {
   render() {
     const boards = this.state.data || [];
     let abbreviations = [];
-    let currentBoard = null;
 
     if (boards) {
       abbreviations = boards.map(b => b.abbreviation);
       abbreviations = abbreviations.sort();
-
-      
-      const currentBoardAbbreviation = this.props.params.abbreviation;
-      console.log(boards);
-      currentBoard = boards.find(elem => elem.abbreviation === currentBoardAbbreviation);
     }
 
     return (
       <div className="App">
         <HeaderBoardList boards={abbreviations} />
 
-        <div className="App-header">
-          <h1>tekislauta</h1>
+        <div className="App__header">
+          <h1 className="App__header__text">tekislauta</h1>
         </div>
-        <div className="App-intro">
+        <div className="App__body">
           {this.props.children}
         </div>
       </div>
