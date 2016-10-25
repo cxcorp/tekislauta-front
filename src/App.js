@@ -56,9 +56,7 @@ class App extends Component {
           <h1>tekislauta</h1>
         </div>
         <div className="App-intro">
-          {this.props.children && React.cloneElement(this.props.children, {
-              currentBoard: currentBoard
-          })}
+          {this.props.children}
         </div>
       </div>
     );
