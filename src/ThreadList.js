@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import ThreadListItem from './ThreadListItem';
+import Post from './Post';
 
 class ThreadList extends Component {
     constructor(props) {
@@ -39,7 +39,7 @@ class ThreadList extends Component {
     render() {
         let threads = [];
         if (this.state.threads) {
-            threads = this.state.threads.map(thread => <ThreadListItem data={thread} key={thread.id} board={this.props.abbreviation}/>);
+            threads = this.state.threads.map(thread => <Post data={thread} key={thread.id} board={this.props.abbreviation}/>);
         }
         return (
             <div className='ThreadList'>
