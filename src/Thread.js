@@ -6,7 +6,7 @@ class Thread extends Component {
         
         return (
             <div className='Thread'>
-                
+                Threads not implemented yet
             </div>
         );
     }
