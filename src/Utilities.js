@@ -56,7 +56,7 @@ const Utilities = {
             let $l = ($maxAdd / 2.0);
 
             //if all the numbers are equal, there is no saturation (greyscale).
-            if ($myMin != $myMax) {
+            if ($myMin !== $myMax) {
                 if ($l < 0.5) {
                     $s = ($maxSub / $maxAdd);
                 } else {
@@ -68,18 +68,19 @@ const Utilities = {
                 switch($myMax){
                     case $r: 
                         $h = ($g - $b);
-                        $h = ($h / $maxSub);
+                        $h /= $maxSub;
                         break;
                     case $g: 
                         $h = ($b - $r); 
-                        $h = ($h / $maxSub);
-                        $h = ($h + 2.0);
+                        $h /= $maxSub;
+                        $h += 2.0;
                         break;
                     case $b: 
                         $h = ($r - $g);
-                        $h = ($h / $maxSub); 
-                        $h = ($h + 4.0);
+                        $h /= $maxSub; 
+                        $h += 4.0;
                         break;
+                    default: break;
                 } 
             }
 
