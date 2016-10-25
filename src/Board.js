@@ -1,67 +1,52 @@
 import React, { Component } from 'react';
 import BoardThread from './BoardThread';
+import Thread from './Thread';
+import ThreadList from './ThreadList';
 
 class Board extends Component {
     constructor(props) {
         super(props);
 
-        this.state = {};
+        this.state = {
+            info: {
+                name: 'Loading',
+                abbreviation: props.params.abbreviation,
+                description: ''
+            }
+        };
     }
 
     componentDidMount() {
         // fetch initial state when the Board component is used for the first time
-        this.fetchData();
+        this.fetchBoardInfo();
     }
 
     componentDidUpdate(oldProps) {
         // user probably switched from a board to another board, ignore if old board === this board
         if (oldProps.params.abbreviation !== this.props.params.abbreviation)
-            this.fetchData();
+            this.fetchBoardInfo();
     }
 
-    fetchData() {
-        /*
-        [
-        {
-        "id": 1,
-        "ip": "0:0:0:0:0:0:0:1",
-        "post_time": 1476803204,
-        "subject": "Hello",
-        "message": "Yoo wassup"
-        }
-        ]
-        */
-
-        fetch('/api/boards/' + this.props.params.abbreviation + '/posts/').then((data, err) => {
+    fetchBoardInfo() {
+        fetch('/api/boards/' + this.props.params.abbreviation).then((data, err) => {
             if (err) {
                 // TODO: UI for API errors
-                console.error(err);
+                console.error(this.constructor.name, err);
                 return;
             }
             data.json().then(data => {
-                console.log("Got posts!", data);
-                this.setState({threads: data});
+                console.log(this.constructor.name, "Got board info!", data);
+                this.setState({info: data});
             });
         })
         .catch(err => {
-            console.error('Error while fetching posts!', err);
+            console.error(this.displayName, 'Error while fetching posts!', err);
         });
     }
 
     render() {
-        let name = "Loading...";
-        let description = "Loading...";
-
-        if (this.props.currentBoard) {
-            name = this.props.currentBoard.name;
-            description = this.props.currentBoard.description;
-        }
-
-        console.info("threads", this.state.threads);
-        let threads = [];
-        if (this.state.threads) {
-            threads = this.state.threads.map(thread => <BoardThread data={thread} />);
-        }
+        let name = this.state.info.name;
+        let description = this.state.info.description;
 
         return (
             <div className='Board'>
@@ -73,9 +58,11 @@ class Board extends Component {
                     {description}
                 </h2>
 
-                <div className='Board__Threads'>
-                    {threads}
-                </div>
+                {this.props.params.threadId ? (
+                    <Thread id={this.props.params.threadId} />
+                ) : (
+                    <ThreadList abbreviation={this.props.params.abbreviation} />
+                )}
             </div>
         );
     }

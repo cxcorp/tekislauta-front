@@ -20,7 +20,7 @@ const HeaderBoardList = ({boards}) => {
 
 const HeaderBoardListItem = ({abbr}) => (
     <li className='HeaderBoardList__list__item'>
-        <Link className='HeaderBoardList__list__item__anchor' to={'/boards/' + abbr}>
+        <Link className='HeaderBoardList__list__item__anchor' to={'/boards/' + abbr + '/'}>
             {abbr}
         </Link>
     </li>

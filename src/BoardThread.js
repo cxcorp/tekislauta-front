@@ -1,18 +1,8 @@
 import React, {Component} from 'react';
 
-/*
-[
-  {
-    "id": 1,
-    "ip": "0:0:0:0:0:0:0:1",
-    "post_time": 1476803204,
-    "subject": "Hello",
-    "message": "Yoo wassup"
-  }
-]
-*/
+
 class BoardThread extends Component {
-    render() {console.log(this.props);
+    render() {
         return (
             <div className='BoardThread'>
                 <h5>{this.props.data.subject}</h5>
