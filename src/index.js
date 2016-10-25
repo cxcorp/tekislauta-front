@@ -9,8 +9,7 @@ ReactDOM.render(
   <Router history={browserHistory}>
     <Route path="/" component={App}>
       <Route path="boards/:abbreviation/" component={Board}>
-        {/*<Route path="boards/:abbreviation/" component={ThreadList} />*/}
-        <Route path=":thread/" />
+        <Route path=":threadId" />
       </Route>
     </Route>
   </Router>,
