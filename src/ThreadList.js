@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import BoardThread from './BoardThread';
+import ThreadListItem from './ThreadListItem';
 
 class ThreadList extends Component {
     constructor(props) {
@@ -39,11 +39,13 @@ class ThreadList extends Component {
     render() {
         let threads = [];
         if (this.state.threads) {
-            threads = this.state.threads.map(thread => <BoardThread data={thread} key={thread.id}/>);
+            threads = this.state.threads.map(thread => <ThreadListItem data={thread} key={thread.id} board={this.props.abbreviation}/>);
         }
         return (
             <div className='ThreadList'>
-                {threads}
+                <div className='ThreadList__threads'>
+                    {threads}
+                </div>
             </div>
         );
     }
