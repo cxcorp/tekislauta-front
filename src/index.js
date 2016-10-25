@@ -1,10 +1,8 @@
-import React, { Component } from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom';
-import { Router, Route, DefaultRoute, browserHistory } from 'react-router';
+import { Router, Route, browserHistory } from 'react-router';
 import App from './App';
 import Board from './Board';
-import Thread from './Thread';
-import ThreadList from './ThreadList';
 import './styles/index.css';
 
 ReactDOM.render(

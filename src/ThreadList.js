@@ -28,7 +28,6 @@ class ThreadList extends Component {
             }
 
             data.json().then(data => {
-                console.log("ThreadList", "Got data", data);
                 this.setState({threads: data});
             });
         })
@@ -38,7 +37,6 @@ class ThreadList extends Component {
     }
 
     render() {
-        console.info(this.constructor.name, "threads", this.state.threads);
         let threads = [];
         if (this.state.threads) {
             threads = this.state.threads.map(thread => <BoardThread data={thread} key={thread.id}/>);

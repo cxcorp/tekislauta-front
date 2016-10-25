@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import BoardThread from './BoardThread';
 import Thread from './Thread';
 import ThreadList from './ThreadList';
 
