@@ -13,7 +13,9 @@ class ThreadList extends Component {
     }
 
     componentDidUpdate(oldProps) {
-
+        if (oldProps.abbreviation !== this.props.abbreviation) {
+            this.fetchThreads();
+        }
     }
 
     fetchThreads() {
