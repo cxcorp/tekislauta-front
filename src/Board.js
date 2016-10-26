@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Thread from './Thread';
 import ThreadList from './ThreadList';
-import ThreadSubmitter from './ThreadSubmitter';
+import ThreadSubmitForm from './ThreadSubmitForm';
 import './styles/Board.css';
 
 class Board extends Component {
@@ -94,7 +94,7 @@ class Board extends Component {
                     {description}
                 </h2>
 
-                <ThreadSubmitter submit={this.submitNewThread.bind(this)} />
+                <ThreadSubmitForm submit={this.submitNewThread.bind(this)} />
                 {childToShow}
             </div>
         );
