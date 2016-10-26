@@ -1,4 +1,5 @@
 .Post {
+    text-align: left;
     width: 100%;
     border-style: solid none;
     border-width: 1px 0;
@@ -6,19 +7,39 @@
     border-bottom-color: rgba(20, 20, 20, 0.2);
 }
 
-.Post__header__id {
+.Post__header {
+    font-size: 14px;
+}
+
+.Post__header__id__value {
     display: inline-block;
     border-radius: 0.2em;
     font-family: 'Consolas', 'Courier Pro', 'Droid Sans Mono', monospace;
     font-size: 14px;
     color: white;
-    padding: 0.3em;
+    padding: 0.15em 0.3em;
 }
 
 .Post__header__title {
+    color: #0F0C5D;
+    font-weight: bold;
     display: inline-block;
 }
 
 .Post__header__timestamp {
     display: inline-block;
+}
+
+.Post__header__posterName {
+    color: #117743;
+    font-weight: bold;
+}
+
+.Post__header__title__anchor {
+    color: #0F0C5D;
+    text-decoration: none;
+}
+
+.Post__header__title__anchor:visited {
+    color: inherit;
 }

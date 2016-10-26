@@ -29,20 +29,32 @@ class Post extends Component {
         return (
             <div className='Post'>
                 <div className='Post__header'>
-                    <h3 className='Post__header__title'>
+                    <span className='Post__header__title'>
                         <Link className='Post__header__title__anchor' to={'/boards/' + this.props.board + '/' + this.props.data.id}>
                         {this.props.data.subject}
                         </Link>
-                    </h3>
-                    <time className='Post__header__timestamp'>{new Date(this.props.data.post_time*1000).toString()}</time>
-                    <br/>
-                    <p>By <span className='Post__header__id' style={idStyle}>{this.props.data.ip}</span></p>
-                    <br/>
+                    </span>
+                    <span className='Post__header__posterName'> Anonymous </span>
+                    <span className='Post__header__id'>(ID: <span className='Post__header__id__value' style={idStyle}>{this.props.data.ip}</span>) </span>
+                    <time className='Post__header__timestamp'>{new Date(this.props.data.post_time*1000).toLocaleString("fi-FI")}</time>
+                    <span className='Post__header__postNumber'>  No. {this.props.data.id}</span>
+                    {/*<ReplyLink abbreviation=''/>*/}
                 </div>
                 <div className='Post__content'>
                     <p>{this.props.data.message}</p>
                 </div>
             </div>
+        );
+    }
+}
+
+class ReplyLink extends Component {
+    render() {
+        const link = '/boards/' + this.props.abbreviation + "/posts/" + this.props.postId;
+        return (
+            <span className='ReplyLink'>
+                [<Link to={link}>Reply</Link>]
+            </span>
         );
     }
 }

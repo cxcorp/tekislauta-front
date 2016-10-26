@@ -8,6 +8,10 @@ body {
   background-color: rgb(238,242,255);
 }
 
+p, h1, h2, h3, h4, h5 {
+  font-family: 'Roboto', Arial, sans-serif;
+}
+
 .App::after {
   background: linear-gradient(to bottom, rgb(209,213,238) 0%, rgb(238,242,255) 100%);
   background-repeat: no-repeat;
@@ -43,6 +47,11 @@ body {
   margin: 0 auto;
 }
 
-p, h1, h2, h3, h4, h5 {
-  font-family: 'Roboto', Arial, sans-serif;
+.App__header__text--homelink {
+  text-decoration: none;
+}
+
+.App__header__text--homelink:visited {
+  color: #AF0A0F;
+  text-decoration: inherit;
 }

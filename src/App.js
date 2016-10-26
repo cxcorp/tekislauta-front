@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
+import {Link} from 'react-router';
 import HeaderBoardList from './HeaderBoardList.js';
+import BoardList from './BoardList';
 import './styles/App.css';
 
 class App extends Component {
