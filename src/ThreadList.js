@@ -32,6 +32,7 @@ class ThreadList extends Component {
                 if (!jsonData || jsonData.status !== 'Success') {
                     throw new Error('Response was bad! ' + data);
                 }
+                jsonData.data.board = this.props.abbreviation;
                 this.setState({threads: jsonData.data});
             });
         })

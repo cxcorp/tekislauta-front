@@ -43,3 +43,7 @@
 .Post__header__title__anchor:visited {
     color: inherit;
 }
+
+.ReplyLink {
+    margin: 0 1em;
+}

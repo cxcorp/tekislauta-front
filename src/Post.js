@@ -38,7 +38,7 @@ class Post extends Component {
                     <span className='Post__header__id'>(ID: <span className='Post__header__id__value' style={idStyle}>{this.props.data.ip}</span>) </span>
                     <time className='Post__header__timestamp'>{new Date(this.props.data.post_time*1000).toLocaleString("fi-FI")}</time>
                     <span className='Post__header__postNumber'>  No. {this.props.data.id}</span>
-                    {/*<ReplyLink abbreviation=''/>*/}
+                    <ReplyLink board={this.props.board} postId={this.props.data.id}/>
                 </div>
                 <div className='Post__content'>
                     <p>{this.props.data.message}</p>
@@ -50,7 +50,7 @@ class Post extends Component {
 
 class ReplyLink extends Component {
     render() {
-        const link = '/boards/' + this.props.abbreviation + "/posts/" + this.props.postId;
+        const link = `/boards/${this.props.board}/${this.props.postId}`;
         return (
             <span className='ReplyLink'>
                 [<Link to={link}>Reply</Link>]
