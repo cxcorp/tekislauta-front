@@ -21,9 +21,12 @@ class App extends Component {
         return;
       }
 
-      response.json().then(data => {
-        this.setState({ error: null, data: data });
-        console.info(data);
+      response.json().then(responseData => {
+        if (responseData.status === 'Success') {
+          this.setState({ error: null, data: responseData.data });
+        } else {
+          this.setState({ error: responseData.status, data: null });
+        }
       });
     })
     .catch(error => {
@@ -33,14 +36,20 @@ class App extends Component {
     });
   }
 
-  render() {
-    const boards = this.state.data || [];
-    let abbreviations = [];
+  showBoardListOrNot() {
+    return this.props.location.pathname === '/'
+          && this.state.data;
+  }
 
-    console.log("App::render.boards", boards);
-    if (boards && boards.status === 'Success') {
-      abbreviations = boards.data.map(b => b.abbreviation);
+  render() {
+    let abbreviations = [];
+    console.log("App::render boards data", this.state.data);
+    if (this.state.data) {
+      abbreviations = this.state.data.map(b => b.abbreviation);
       abbreviations = abbreviations.sort();
+    }
+    if (this.state.error) {
+      console.error("App::render", this.state.error);
     }
 
     return (
@@ -48,9 +57,12 @@ class App extends Component {
         <HeaderBoardList boards={abbreviations} />
 
         <div className="App__header">
-          <h1 className="App__header__text">tekislauta</h1>
+          <h1 className="App__header__text">
+            <Link to="/" className="App__header__text--homelink">tekislauta</Link>
+          </h1>
         </div>
         <div className="App__body">
+          {this.showBoardListOrNot() ? <BoardList boards={this.state.data} /> : null}
           {this.props.children}
         </div>
       </div>
