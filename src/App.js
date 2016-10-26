@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Link} from 'react-router';
+import { Link } from 'react-router';
 import HeaderBoardList from './HeaderBoardList.js';
 import BoardList from './BoardList';
 import './styles/App.css';
@@ -15,7 +15,7 @@ class App extends Component {
   componentDidMount() {
     this.fetchBoards();
   }
-  
+
   fetchBoards() {
     fetch('/api/boards/').then(response => {
       if (!response.ok) {
@@ -31,16 +31,16 @@ class App extends Component {
         }
       });
     })
-    .catch(error => {
-      // TODO: ui
-      this.setState({ error: error, data: null });
-      console.error(error);
-    });
+      .catch(error => {
+        // TODO: ui
+        this.setState({ error: error, data: null });
+        console.error(error);
+      });
   }
 
   showBoardListOrNot() {
     return this.props.location.pathname === '/'
-          && this.state.data;
+      && this.state.data;
   }
 
   render() {
