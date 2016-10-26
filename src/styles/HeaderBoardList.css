@@ -1,14 +1,37 @@
 .HeaderBoardList__list {
     margin: 0;
     padding: 0;
+    color: #89A;
+}
+
+.HeaderBoardList__list:before {
+    content: '[ ';
+}
+
+.HeaderBoardList__list:after {
+    content: ' ]';
 }
 
 .HeaderBoardList__list__item {
+    font-size: 14px;
     list-style-type: none;
     display: inline;
+    color: #34345C;
 }
 
 .HeaderBoardList__list__item:not(:first-child):before {
     /* props to David Cahill on SE for this trick, http://stackoverflow.com/a/11052387/996081 */
     content: ' / ';
+}
+
+.HeaderBoardList__list__item__anchor {
+    text-decoration: inherit;
+}
+
+.HeaderBoardList__list__item__anchor:visited {
+    color: #34345C;
+}
+
+.HeaderBoardList__list__item__anchor:hover {
+    color: #DD0000;
 }

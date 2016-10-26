@@ -28,14 +28,20 @@ class Post extends Component {
         }
         return (
             <div className='Post'>
-                <h3><Link to={'/boards/' + this.props.board + '/' + this.props.data.id}>{this.props.data.subject}</Link></h3>
-                <br/>
-                <time>{new Date(this.props.data.post_time*1000).toString()}</time>
-                <br/>
-                <br/>
-                <p>By <span className='Post__metadata__id' style={idStyle}>{this.props.data.ip}</span></p>
-                <br/>
-                <p>{this.props.data.message}</p>
+                <div className='Post__header'>
+                    <h3 className='Post__header__title'>
+                        <Link className='Post__header__title__anchor' to={'/boards/' + this.props.board + '/' + this.props.data.id}>
+                        {this.props.data.subject}
+                        </Link>
+                    </h3>
+                    <time className='Post__header__timestamp'>{new Date(this.props.data.post_time*1000).toString()}</time>
+                    <br/>
+                    <p>By <span className='Post__header__id' style={idStyle}>{this.props.data.ip}</span></p>
+                    <br/>
+                </div>
+                <div className='Post__content'>
+                    <p>{this.props.data.message}</p>
+                </div>
             </div>
         );
     }
