@@ -35,13 +35,16 @@ class Board extends Component {
                 console.error(this.constructor.name, err);
                 return;
             }
-            data.json().then(data => {
-                console.log(this.constructor.name, "Got board info!", data);
-                this.setState({info: data});
+            data.json().then(jsonData => {
+                console.log("Board::fetchBoardInfo", "Got board info!", jsonData);
+                if (!jsonData || jsonData.status !== 'Success') {
+                    throw new Error('Parsed data was bad! ' + data);
+                }
+                this.setState({info: jsonData.data});
             });
         })
         .catch(err => {
-            console.error(this.displayName, 'Error while fetching posts!', err);
+            console.error("Board::fetchBoardInfo", 'Error while fetching posts!', err);
         });
     }
 
@@ -73,7 +76,7 @@ class Board extends Component {
             body: JSON.stringify(formData)
         })
         .then((data, err) => {
-            console.log("handleSubmit callback", data);
+            console.log("Board::submitNewThread", data);
         });
     }
 

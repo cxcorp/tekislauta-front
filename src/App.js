@@ -37,8 +37,9 @@ class App extends Component {
     const boards = this.state.data || [];
     let abbreviations = [];
 
-    if (boards) {
-      abbreviations = boards.map(b => b.abbreviation);
+    console.log("App::render.boards", boards);
+    if (boards && boards.status === 'Success') {
+      abbreviations = boards.data.map(b => b.abbreviation);
       abbreviations = abbreviations.sort();
     }
 

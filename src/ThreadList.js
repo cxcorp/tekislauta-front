@@ -27,8 +27,12 @@ class ThreadList extends Component {
                 return;
             }
 
-            data.json().then(data => {
-                this.setState({threads: data});
+            data.json().then(jsonData => {
+                console.log("ThreadList::fetchThreads", jsonData);
+                if (!jsonData || jsonData.status !== 'Success') {
+                    throw new Error('Response was bad! ' + data);
+                }
+                this.setState({threads: jsonData.data});
             });
         })
         .catch(err => {
