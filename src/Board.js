@@ -29,35 +29,35 @@ class Board extends Component {
   }
 
   fetchBoardInfo() {
-      fetch('/api/boards/' + this.props.params.abbreviation).then((data, err) => {
-        if (err) {
-          // TODO: UI for API errors
-          console.error(this.constructor.name, err);
-          return;
-        }
-        data.json().then(jsonData => {
-          console.log("Board::fetchBoardInfo", "Got board info!", jsonData);
-          if (!jsonData || jsonData.status !== 'Success') {
-            throw new Error('Parsed data was bad! ' + data);
-          }
-          this.setState({ info: jsonData.data });
-        });
-      })
-        .catch(err => {
-          console.error("Board::fetchBoardInfo", 'Error while fetching posts!', err);
-        });
-    }
-
-    getChildToShow() {
-      // yes, I know what the ?: is but this is more readable
-      if (this.props.params.threadId) {
-        // we are in the `/boards/b/:threadId` path
-        return (<Thread abbreviation={this.props.params.abbreviation} id={this.props.params.threadId} />);
-      } else {
-        // we are in the `boards/b/` path
-        return (<ThreadList abbreviation={this.props.params.abbreviation} />);
+    fetch('/api/boards/' + this.props.params.abbreviation).then((data, err) => {
+      if (err) {
+        // TODO: UI for API errors
+        console.error(this.constructor.name, err);
+        return;
       }
+      data.json().then(jsonData => {
+        console.log("Board::fetchBoardInfo", "Got board info!", jsonData);
+        if (!jsonData || jsonData.status !== 'Success') {
+          throw new Error('Parsed data was bad! ' + data);
+        }
+        this.setState({ info: jsonData.data });
+      });
+    })
+      .catch(err => {
+        console.error("Board::fetchBoardInfo", 'Error while fetching posts!', err);
+      });
+  }
+
+  getChildToShow() {
+    // yes, I know what the ?: is but this is more readable
+    if (this.props.params.threadId) {
+      // we are in the `/boards/b/:threadId` path
+      return (<Thread abbreviation={this.props.params.abbreviation} id={this.props.params.threadId} />);
+    } else {
+      // we are in the `boards/b/` path
+      return (<ThreadList abbreviation={this.props.params.abbreviation} />);
     }
+  }
 
   submitNewThread(formData) {
     formData.board = this.props.params.abbreviation;
@@ -97,7 +97,7 @@ class Board extends Component {
           {description}
         </h2>
 
-        <ThreadSubmitForm submit={this.submitNewThread.bind(this)} />
+        <ThreadSubmitForm submit={this.submitNewThread.bind(this) } />
         {childToShow}
       </div>
     );

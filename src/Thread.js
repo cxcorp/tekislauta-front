@@ -15,10 +15,14 @@ class Thread extends Component {
         if (this.state.threads) {
             threads = this.state.threads.map(thread => <Post data={thread} key={thread.id} board={this.props.abbreviation}/>);
         }
+
         return (
             <div className='Thread'>
                 <p>
                     {threads}
+                </p>
+                <p>
+                    {threads.length === 1 ? 'No replies' : ''}
                 </p>
             </div>
         );
