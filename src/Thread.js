@@ -25,7 +25,7 @@ class Thread extends Component {
     }
 
     fetchPosts() {
-        fetch('/api/boards/' + this.props.abbreviation + '/posts/' + this.props.id).then(res => {
+        fetch('/api/boards/' + this.props.abbreviation + '/posts/topics/' + this.props.id).then(res => {
             if (!res.ok)
                 console.log('Therad::fetchPosts', res);
             res.json().then(res => {

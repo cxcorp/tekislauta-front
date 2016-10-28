@@ -25,7 +25,7 @@ class ThreadSubmitForm extends Component {
         <form>
           <h3>Submit new thread</h3>
           <label htmlFor="subject">Subject</label>
-          <input type="text" name="subject" onChange={this.handleChange}></input>
+          <input placeholder="re" type="text" name="subject" onChange={this.handleChange}></input>
           <br />
           <textarea name="message" placeholder="Your message" onChange={this.handleChange}></textarea>
           <br />
