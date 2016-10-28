@@ -77,6 +77,7 @@ class Board extends Component {
     })
       .then((data, err) => {
         console.log("Board::submitNewThread", data);
+        window.location.reload();
       });
   }
 
