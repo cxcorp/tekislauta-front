@@ -59,15 +59,17 @@ class Board extends Component {
     }
   }
 
-  submitNewThread(formData) {
-    formData.board = this.props.params.abbreviation;
+  submitResponse(formData) {
+    // new topics go to
+    // POST api/boards/:board/posts/
+    let submitPath = `/api/boards/${this.props.params.abbreviation}/posts/`;
     if (this.props.params.threadId) {
-      // set the thread we're replying to if we're in an existing thread,
-      // otherwise we're creating a new thread
-      formData.topic_id = this.props.params.threadId;
+      // we're in a thread view so we're actually replying to an existing topic
+      // POST api/boards:board/posts/topics/:topic
+      submitPath += `topics/${this.props.params.threadId}`;
     }
-
-    fetch('/api/boards/' + this.props.params.abbreviation + '/posts/', {
+    
+    fetch(submitPath, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -76,7 +78,7 @@ class Board extends Component {
       body: JSON.stringify(formData)
     })
       .then((data, err) => {
-        console.log("Board::submitNewThread", data);
+        console.log("Board::submitResponse", data);
         window.location.reload();
       });
   }
@@ -98,7 +100,7 @@ class Board extends Component {
           {description}
         </h2>
 
-        <ThreadSubmitForm submit={this.submitNewThread.bind(this) } />
+        <ThreadSubmitForm submit={this.submitResponse.bind(this) } />
         {childToShow}
       </div>
     );
