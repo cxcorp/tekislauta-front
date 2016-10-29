@@ -4,6 +4,11 @@ import Utilities from './Utilities';
 import './styles/Post.css';
 
 class Post extends Component {
+  constructor(props) {
+    super(props);
+    this.containerClassName = 'Post Post--reply';
+  }
+
   getIdColor() {
     const ip = this.props.data.ip;
     let r = parseInt(ip.substr(0, 2), 16);
@@ -21,13 +26,12 @@ class Post extends Component {
   }
 
   render() {
-    console.log('Post props', this.props);
-
-    let idStyle = {
+    const idStyle = {
       backgroundColor: this.getIdColor()
     }
+
     return (
-      <div className='Post' id={'p' + this.props.id}>
+      <div className={this.containerClassName} id={'p' + this.props.data.id}>
         <div className='Post__header'>
           <span className='Post__header__title'>
             <Link className='Post__header__title__anchor' to={'/boards/' + this.props.board + '/' + this.props.data.id}>
@@ -59,4 +63,18 @@ class ReplyLink extends Component {
   }
 }
 
-export default Post;
+class OriginalPost extends Post { // thread starter
+  constructor(props) {
+    super(props);
+    this.containerClassName = 'Post Post--op';
+  }
+}
+
+class ThreadlistOriginalPost extends OriginalPost {
+  constructor(props) {
+    super(props);
+    this.containerClassName = 'Post Post--op Post--op_threadlist';
+  }
+}
+
+export { Post as default, OriginalPost, ThreadlistOriginalPost };

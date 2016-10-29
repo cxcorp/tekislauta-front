@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import Post from './Post';
+import Post, { OriginalPost } from './Post';
 
 class Thread extends Component {
     /* PARAMS: props.params.abbreviation, props.params.thread */
@@ -7,22 +7,27 @@ class Thread extends Component {
         super(props);
 
         this.state = {
-            threads: null
+            posts: null
         };
     }
     render() {
-        let threads = [];
-        if (this.state.threads) {
-            threads = this.state.threads.map(thread => <Post data={thread} key={thread.id} board={this.props.abbreviation}/>);
+        let posts = [];
+        if (this.state.posts && this.state.posts.length >= 0) {
+            posts.push(<OriginalPost data={this.state.posts[0]} key={this.state.posts[0].id} board={this.props.abbreviation} />);
+            
+            for (let i = 1; i < this.state.posts.length; i++) {
+                const t = this.state.posts[i];
+                posts.push(<Post data={t} key={t.id} board={this.props.abbreviation} />);
+            }
         }
 
         return (
             <div className='Thread'>
+                <div>
+                    {posts}
+                </div>
                 <p>
-                    {threads}
-                </p>
-                <p>
-                    {threads.length === 1 ? 'No replies' : ''}
+                    {posts.length === 1 ? 'No replies' : ''}
                 </p>
             </div>
         );
@@ -31,10 +36,11 @@ class Thread extends Component {
     fetchPosts() {
         fetch('/api/boards/' + this.props.abbreviation + '/posts/topics/' + this.props.id).then(res => {
             if (!res.ok)
-                console.log('Therad::fetchPosts', res);
+                console.error('Thread::fetchPosts not ok', res);
             res.json().then(res => {
+                console.log("Thread::fetchPosts was ok", res.data);
                 this.setState({
-                    threads: res.data
+                    posts: res.data
                 });
             }).catch(e => {
                 console.log(e);

@@ -1,6 +1,29 @@
 .Post {
+    display: block;
+    float: left;
+    clear: both;
     text-align: left;
+    max-width: 90%;
+}
+
+.Post--reply { /* replies get that yotsuba look */
+    background-color: #D6DAF0;
+    padding: 0.3em 1em;
+    margin-top: 2px;
+    border: 1px solid #B7C5D9;
+    border-top: none;
+    border-left: none;
+}
+
+.Post--op {
+    border: none;
+}
+
+.Post--op_threadlist:after {
+    display: block;
+    content: ' ';
     width: 100%;
+    position: absolute;
     border-style: solid none;
     border-width: 1px 0;
     border-top-color: rgba(240, 240, 240, 0.75);
