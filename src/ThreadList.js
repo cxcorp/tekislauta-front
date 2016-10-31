@@ -9,17 +9,16 @@ class ThreadList extends Component {
   }
 
   componentDidMount() {
-    this.fetchThreads();
+    this.fetchThreads(this.props.abbreviation);
   }
 
-  componentDidUpdate(oldProps) {
-    if (oldProps.abbreviation !== this.props.abbreviation) {
-      this.fetchThreads();
-    }
+  componentWillReceiveProps(nextProps) {
+    // Switching to another board...get the threads ready
+    this.fetchThreads(nextProps.abbreviation);
   }
 
-  fetchThreads() {
-    const abbr = this.props.abbreviation;
+  fetchThreads(board) {
+    const abbr = board;
     fetch('/api/boards/' + abbr + '/posts/').then((data, err) => {
       if (err) {
         // TODO: ui for errors
@@ -32,7 +31,7 @@ class ThreadList extends Component {
         if (!jsonData || jsonData.status !== 'Success') {
           throw new Error('Response was bad! ' + data);
         }
-        jsonData.data.board = this.props.abbreviation;
+        jsonData.data.board = board;
         this.setState({ threads: jsonData.data });
       });
     })

@@ -3,8 +3,12 @@ import Endpoints from './Endpoints';
 import './styles/BoardHeader.css';
 
 class BoardHeader extends Component {
-    componentDidMount() { this.fetchBoardInfo(); }
-    componentWillReceiveProps() { this.fetchBoardInfo(); }
+    componentDidMount() { this.fetchBoardInfo(this.props.params.board); }
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.params.board !== this.props.params.board) {
+            this.fetchBoardInfo(nextProps.params.board);
+        }
+    }
 
     render() {
         return (
@@ -30,15 +34,15 @@ class BoardHeader extends Component {
         );
     }
 
-    fetchBoardInfo() {
-        Endpoints.Board(this.props.params.board).getData()
+    fetchBoardInfo(board) {
+        Endpoints.Board(board).getData()
         .then(data => {
             this.setState({ info: data });
         })
         .catch(err => {
             console.error(
                 'BoardHeader::fetchBoardInfo',
-                'Error while fetching board information for board ' + this.props.params.board,
+                'Error while fetching board information for board ' + board,
                 err
             );
         });

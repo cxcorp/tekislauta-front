@@ -37,7 +37,7 @@ class BoardList extends Component {
 
   fetchBoards() {
     Endpoints.Boards().getData()
-    .then(data => {
+    .then(data =>  {
       this.setState({data: data});
     })
     .catch(err => {
@@ -47,7 +47,7 @@ class BoardList extends Component {
 };
 
 const BoardListItem = (props) => (
-  <li className='BoardListItem'>
+  <li className="BoardListItem"> 
     <Link to={"/boards/" + props.board.abbreviation + "/"}>
       /{props.board.abbreviation}/ - {props.board.name} {props.board.description ? ' - ' + props.board.description : ''}
     </Link>
