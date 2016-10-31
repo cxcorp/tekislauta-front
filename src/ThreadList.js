@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Post, { ThreadlistOriginalPost } from './Post';
+import { ThreadlistOriginalPost } from './Post';
 
 class ThreadList extends Component {
   constructor(props) {

@@ -1,34 +1,69 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
+import Endpoints from './Endpoints';
 import './styles/BoardList.css';
 
 class BoardList extends Component {
+  componentDidMount() { this.fetchBoards(); }
+  componentWillReceiveProps() { this.fetchBoards(); }
+
   render() {
-    const sortedBoards = this.props.boards.sort((a, b) => a.abbreviation.localeCompare(b.abbreviation));
-    let boards = sortedBoards.map(board =>
-      <BoardListItem value={board.name} abbreviation={board.abbreviation} key={board.abbreviation} />
-    );
     return (
       <div className='BoardList'>
-        <h2>Boards</h2>
+        <h2>Discussion boards</h2>
         <ul>
-          {boards}
+          {this.getContent()}
         </ul>
       </div>
     );
   }
-}
 
-class BoardListItem extends Component {
-  render() {
-    return (
-      <li className='BoardListItem'>
-        <Link to={"/boards/" + this.props.abbreviation + "/"}>
-          /{this.props.abbreviation}/ - {this.props.value}
-        </Link>
-      </li>
+  getContent() {
+    if (!this.state || !this.state.data) {
+      return (<p>Loading...</p>);
+    }
+
+    const sortedBoards = this.state.data.sort(
+      (a, b) => a.abbreviation.localeCompare(b.abbreviation)
     );
+    let boards = sortedBoards.map(
+      board => <BoardListItem board={board} key={board.abbreviation} />
+    );
+
+    return (boards && boards.length > 0)
+      ? boards
+      : <p>No boards</p>;
   }
-}
+
+  fetchBoards() {
+    Endpoints.Boards().getData()
+    .then(data => {
+      this.setState({data: data});
+    })
+    .catch(err => {
+      console.error("BoardList::fetchBoards", "Couldn't get Boards endpoint!", err);
+    })
+  }
+};
+
+const BoardListItem = (props) => (
+  <li className='BoardListItem'>
+    <Link to={"/boards/" + props.board.abbreviation + "/"}>
+      /{props.board.abbreviation}/ - {props.board.name} {props.board.description ? ' - ' + props.board.description : ''}
+    </Link>
+  </li>
+);
+
+BoardListItem.propTypes = {
+  board: PropTypes.shape({
+    abbreviation:PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    description: PropTypes.string
+  })
+};
+
+BoardList.propTypes = {
+  boards: PropTypes.arrayOf(BoardListItem.propTypes)
+};
 
 export default BoardList;
