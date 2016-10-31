@@ -1,0 +1,9 @@
+.BoardThreadList, .BoardThreadList__threads {
+    overflow: auto;
+    zoom: 1;
+    /*clearfix*/
+}
+
+.BoardThreadList__threads {
+    
+}

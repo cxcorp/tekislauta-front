@@ -16,12 +16,12 @@ ReactDOM.render(
 
     <Route component={App}>
       <Route component={BoardHeader}>
-        <Route path="/boards/:board" component={BoardView} />
-        <Route path="/boards/:board/:thread" component={ThreadView} />
+        <Route path="/boards/:board/:page" component={BoardView} />
+        <Route path="/boards/:board/thread/:thread" component={ThreadView} />
       </Route>
     </Route>
 
-    <Redirect from="/boards/:board/:thread/*" to="/boards/:board/:thread/" />
+    <Redirect from="/boards/:board" to="/boards/:board/0" />
     <Redirect from="*" to="/" />
   </Router>,
   document.getElementById('root')

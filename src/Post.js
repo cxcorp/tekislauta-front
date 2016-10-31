@@ -54,7 +54,7 @@ class Post extends Component {
 
 class ReplyLink extends Component {
   render() {
-    const link = `/boards/${this.props.board}/${this.props.postId}`;
+    const link = `/boards/${this.props.board}/thread/${this.props.postId}`;
     return (
       <span className='ReplyLink'>
         [<Link to={link}>Reply</Link>]

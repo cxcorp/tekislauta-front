@@ -4,6 +4,7 @@
     clear: both;
     text-align: left;
     max-width: 90%;
+    padding: 0.2em 0;
 }
 
 .Post--reply { /* replies get that yotsuba look */
@@ -23,7 +24,6 @@
     display: block;
     content: ' ';
     width: 100%;
-    position: absolute;
     border-style: solid none;
     border-width: 1px 0;
     border-top-color: rgba(240, 240, 240, 0.75);
@@ -65,6 +65,10 @@
 
 .Post__header__title__anchor:visited {
     color: inherit;
+}
+
+.Post__content {
+    padding-left: 1em;
 }
 
 .ReplyLink {

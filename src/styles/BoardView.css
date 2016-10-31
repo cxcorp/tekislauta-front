@@ -1,0 +1,28 @@
+.BoardView {
+    overflow: auto;
+    zoom: 1;
+}
+
+.Pagination {
+    padding: 0;
+    text-align: left;
+}
+
+.Pagination__active {
+    opacity: 0.5;
+    border: 2px solid rgba(40, 40, 40, 0.2);
+}
+
+.Pagination li {
+    display: inline-block;
+    padding: 0.1em;
+}
+
+.Pagination a {
+    cursor: pointer;
+    padding: 0.4em;
+}
+
+.break a {
+    cursor: default;
+}

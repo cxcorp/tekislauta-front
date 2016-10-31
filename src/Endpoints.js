@@ -19,9 +19,9 @@ class Endpoint {
         this.path = path;
     }
 
-    getData() {
+    getData(queryString) {
         return new Promise((resolve, reject) => {
-            const promise = fetch(this.path);
+            const promise = fetch(this.path + (queryString ? queryString : ""));
             dealWithFetchPromise(promise, resolve, reject);
         }); 
     }
