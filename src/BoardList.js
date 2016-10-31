@@ -11,16 +11,22 @@ class BoardList extends Component {
     return (
       <div className='BoardList'>
         <h2>Discussion boards</h2>
-        <ul>
-          {this.getContent()}
-        </ul>
+        <table className='BoardList__boards'>
+          <thead>
+            <th>Board</th>
+            <th>Description</th>
+          </thead>
+          <tbody>
+            {this.getBoardRows()}
+          </tbody>
+        </table>
       </div>
     );
   }
 
-  getContent() {
+  getBoardRows() {
     if (!this.state || !this.state.data) {
-      return (<p>Loading...</p>);
+      return [];
     }
 
     const sortedBoards = this.state.data.sort(
@@ -30,9 +36,7 @@ class BoardList extends Component {
       board => <BoardListItem board={board} key={board.abbreviation} />
     );
 
-    return (boards && boards.length > 0)
-      ? boards
-      : <p>No boards</p>;
+    return boards;
   }
 
   fetchBoards() {
@@ -47,11 +51,14 @@ class BoardList extends Component {
 };
 
 const BoardListItem = (props) => (
-  <li className="BoardListItem"> 
-    <Link to={"/boards/" + props.board.abbreviation + "/"}>
-      /{props.board.abbreviation}/ - {props.board.name} {props.board.description ? ' - ' + props.board.description : ''}
-    </Link>
-  </li>
+  <tr className="BoardListItem">
+    <td className="BoardListItem__property">
+      <Link to={"/boards/" + props.board.abbreviation + "/"}>
+        /{props.board.abbreviation}/ - {props.board.name}
+      </Link>
+    </td>
+    <td className="BoardListItem__property">{props.board.description}</td>    
+  </tr>
 );
 
 BoardListItem.propTypes = {
