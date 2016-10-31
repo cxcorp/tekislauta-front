@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Post, { OriginalPost } from './Post';
 import ThreadSubmitForm from './ThreadSubmitForm';
+import Endpoints from './Endpoints';
 
 class ThreadView extends Component {
     componentDidMount() { this.fetchPosts(); }
@@ -30,41 +31,24 @@ class ThreadView extends Component {
     }
 
     fetchPosts() {
-        fetch('/api/boards/' + this.props.params.board + '/posts/topics/' + this.props.params.thread).then(res => {
-            if (!res.ok)
-                console.error('Thread::fetchPosts not ok', res);
-            res.json().then(res => {
-                console.log("Thread::fetchPosts was ok", res.data);
-                this.setState({
-                    posts: res.data
-                });
-            }).catch(e => {
-                console.log(e);
+        Endpoints.Replies(this.props.params.board, this.props.params.thread).getData()
+        .then(data => {
+            console.log("Thread::fetchPosts was ok", data);
+            this.setState({
+                posts: data
             });
-        });
+        })
+        .catch(err => console.error("ThreadView::fetchPots", "Error while getting posts!", err));
     }
 
     submitResponse(formData) {
-        // new topics go to
-        // POST api/boards/:board/posts/
-        // new replies go to
-        // POST api/boards/:board/posts/topics/:thread
-        let submitPath = `/api/boards/${this.props.params.board}/posts/topics/${this.props.params.thread}`;
-
-        fetch(submitPath, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json; charset=utf-8',
-                'Accept': 'application/json'
-            },
-            body: JSON.stringify(formData)
-        })
-        .then((data, err) => {
-            console.log("Board::submitResponse", data);
+        Endpoints.Replies(this.props.params.board, this.props.params.thread).postData(formData)
+        .then(data => {
+            console.log("ThreadView::submitResponse", "Submitted new post!", data);
             window.location.reload();
         })
         .catch(err => {
-            console.error("BoardView::submitResponse", "Error while posting", err);
+            console.log("ThreadView::submitResponse", "Error while submitting new post!", err);
         });
     }
 }
