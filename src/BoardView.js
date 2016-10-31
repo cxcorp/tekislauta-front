@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import ThreadList from './ThreadList';
-import ThreadSubmitForm from './ThreadSubmitForm';
+import SubmitForm from './SubmitForm';
 import Endpoints from './Endpoints';
 import './styles/BoardView.css';
 
@@ -8,7 +8,7 @@ class BoardView extends Component {
     render() {
         return (
             <div className="BoardView">
-                <ThreadSubmitForm submit={this.submitResponse.bind(this) } />
+                <SubmitForm title="Submit new thread" submit={this.submitResponse.bind(this) } />
                 <ThreadList abbreviation={this.props.params.board}/>
             </div>
         );

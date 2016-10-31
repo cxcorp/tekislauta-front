@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-class ThreadSubmitForm extends Component {
+class SubmitForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -21,9 +21,9 @@ class ThreadSubmitForm extends Component {
 
   render() {
     return (
-      <div className='ThreadSubmitForm'>
+      <div className='SubmitForm'>
         <form>
-          <h3>Submit new thread</h3>
+          <h3>{this.props.title}</h3>
           <label htmlFor="subject">Subject</label>
           <input placeholder="re" type="text" name="subject" onChange={this.handleChange}></input>
           <br />
@@ -36,4 +36,4 @@ class ThreadSubmitForm extends Component {
   }
 }
 
-export default ThreadSubmitForm;
+export default SubmitForm;

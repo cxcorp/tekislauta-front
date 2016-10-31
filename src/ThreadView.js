@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Post, { OriginalPost } from './Post';
-import ThreadSubmitForm from './ThreadSubmitForm';
+import SubmitForm from './SubmitForm';
 import Endpoints from './Endpoints';
 
 class ThreadView extends Component {
@@ -19,7 +19,7 @@ class ThreadView extends Component {
 
         return (
             <div className='Thread'>
-                <ThreadSubmitForm submit={this.submitResponse.bind(this)} />
+                <SubmitForm title="Submit new reply" submit={this.submitResponse.bind(this)} />
                 <div>
                     {posts}
                 </div>
