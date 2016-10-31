@@ -14,12 +14,12 @@ ReactDOM.render(
       <Route path="/" component={Home} />
     </Route>
 
-    {<Route component={App}>
+    <Route component={App}>
       <Route component={BoardHeader}>
         <Route path="/boards/:board" component={BoardView} />
         <Route path="/boards/:board/:thread" component={ThreadView} />
       </Route>
-    </Route>}
+    </Route>
 
     <Redirect from="/boards/:board/:thread/*" to="/boards/:board/:thread/" />
     <Redirect from="*" to="/" />

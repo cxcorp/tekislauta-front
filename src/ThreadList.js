@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { ThreadlistOriginalPost } from './Post';
+import Endpoints from './Endpoints';
 
 class ThreadList extends Component {
   constructor(props) {
@@ -18,26 +19,14 @@ class ThreadList extends Component {
   }
 
   fetchThreads(board) {
-    const abbr = board;
-    fetch('/api/boards/' + abbr + '/posts/').then((data, err) => {
-      if (err) {
-        // TODO: ui for errors
-        console.error(this.constructor.name, err);
-        return;
-      }
-
-      data.json().then(jsonData => {
-        console.log("ThreadList::fetchThreads", jsonData);
-        if (!jsonData || jsonData.status !== 'Success') {
-          throw new Error('Response was bad! ' + data);
-        }
-        jsonData.data.board = board;
-        this.setState({ threads: jsonData.data });
-      });
+    Endpoints.Threads(board).getData()
+    .then(data => {
+        data.board = board; // silly reply links need this
+        this.setState({ threads: data });
     })
-      .catch(err => {
-        console.error(this.constructor.name, 'Error while fetching threads!', err);
-      });
+    .catch(err => {
+      console.error(this.constructor.name, 'Error while fetching threads!', err);
+    });
   }
 
   render() {

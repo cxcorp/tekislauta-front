@@ -13,8 +13,10 @@ class BoardList extends Component {
         <h2>Discussion boards</h2>
         <table className='BoardList__boards'>
           <thead>
-            <th>Board</th>
-            <th>Description</th>
+            <tr>
+              <th>Board</th>
+              <th>Description</th>
+            </tr>
           </thead>
           <tbody>
             {this.getBoardRows()}
