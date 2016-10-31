@@ -1,3 +1,19 @@
+const dealWithFetchPromise = (promise, resolve, reject) => {
+    promise
+    .then(response => {
+        response
+        .json()
+        .then(data => {
+            if (data.status === 'Success') {
+                resolve(data.data);
+                return;
+            }
+            reject(`Server responded with an error: "${data.data}"`);
+        });
+    })
+    .catch(err => reject(err));
+}
+
 class Endpoint {
     constructor(path) {
         this.path = path;
@@ -5,23 +21,22 @@ class Endpoint {
 
     getData() {
         return new Promise((resolve, reject) => {
-            fetch(this.path)
-            .then(response => {
-                if (!response.ok) {
-                    reject(`Response from server was not okay (${response.status} - ${response.statusText})!`);
-                    return;
-                }
-                response
-                .json()
-                .then(data => {
-                    if (data.status === 'Success') {
-                        resolve(data.data);
-                        return;
-                    }
-                    reject(`Server responded with an error: "${data.data}"`);
-                });
-            })
-            .catch(err => reject(err));
+            const promise = fetch(this.path);
+            dealWithFetchPromise(promise, resolve, reject);
+        }); 
+    }
+
+    postData(dataObject) {
+        return new Promise((resolve, reject) => {
+            const promise = fetch(this.path, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json; charset=utf-8',
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify(dataObject)
+            });
+            dealWithFetchPromise(promise, resolve, reject);
         }); 
     }
 }
