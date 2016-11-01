@@ -34,7 +34,7 @@ class Post extends Component {
       <div className={this.containerClassName} id={'p' + this.props.data.id}>
         <div className='Post__header'>
           <span className='Post__header__title'>
-            <Link className='Post__header__title__anchor' to={'/boards/' + this.props.board + '/' + this.props.data.id}>
+            <Link className='Post__header__title__anchor' to={'/boards/' + this.props.board + '/thread/' + this.props.data.id}>
               {this.props.data.subject}
             </Link>
           </span>
@@ -42,7 +42,7 @@ class Post extends Component {
           <span className='Post__header__id'>(ID: <span className='Post__header__id__value' style={idStyle}>{this.props.data.ip}</span>) </span>
           <time className='Post__header__timestamp'>{new Date(this.props.data.post_time * 1000).toLocaleString("fi-FI") }</time>
           <span className='Post__header__postNumber'>  No.{this.props.data.id}</span>
-          <ReplyLink board={this.props.board} postId={this.props.data.id} />
+          <ReplyLink onClickFunc={this.props.onReplyClicked} board={this.props.board} postId={this.props.data.id} />
         </div>
         <div className='Post__content'>
           <ThreadReply message={this.props.data.message} />
@@ -55,23 +55,32 @@ class Post extends Component {
 class ReplyLink extends Component {
   render() {
     const link = `/boards/${this.props.board}/thread/${this.props.postId}`;
-    return (
-      <span className='ReplyLink'>
-        [<Link to={link}>Reply</Link>]
-      </span>
-    );
+    console.log(this.props);
+    if (this.props.onClickFunc !== undefined) {
+      return (
+        <span className='ReplyLink'>
+          [<a href='#' onClick={() => this.props.onClickFunc(this.props.postId) }>Reply</a>]
+        </span>
+      );
+    } else {
+      return (
+        <span className='ReplyLink'>
+          [<Link to={link}>Reply</Link>]
+        </span>
+      );
+    }
   }
 }
 
 class ThreadReply extends Component {
-  render () {
+  render() {
     var replyId = this.props.message.match(/>> \b\d{1,8}/);
     if (replyId) {
       replyId = replyId[0];
       return (
         <p>
-          <a href={'#' + replyId.substr(3)}>{replyId}</a>
-          {this.props.message.replace(/>> \b\d{1,8}/, '')}
+          <a href={'#' + replyId.substr(3) }>{replyId}</a>
+          {this.props.message.replace(/>> \b\d{1,8}/, '') }
         </p>
       )
     }

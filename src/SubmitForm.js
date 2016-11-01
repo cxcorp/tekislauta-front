@@ -9,14 +9,22 @@ class SubmitForm extends Component {
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    if (this.props.callback)
+      this.props.callback(this);
   }
 
   handleChange(event) {
     this.setState({ [event.target.name]: event.target.value });
+    if (event.target.name === 'message')
+      this.setState({mboxValue: event.target.value});
   }
 
   handleSubmit(event) {
     this.props.submit(this.state);
+  }
+
+  setMessageBoxVal(val) {
+    this.setState({mboxValue: val})
   }
 
   render() {
@@ -27,7 +35,7 @@ class SubmitForm extends Component {
           <label htmlFor="subject">Subject</label>
           <input placeholder="re" type="text" name="subject" onChange={this.handleChange}></input>
           <br />
-          <textarea name="message" placeholder="Your message" onChange={this.handleChange}></textarea>
+          <textarea value={this.state.mboxValue} name="message" placeholder="Your message" onChange={this.handleChange}></textarea>
           <br />
           <button type="button" onClick={this.handleSubmit}>Submit</button>
         </form>
