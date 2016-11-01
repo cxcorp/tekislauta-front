@@ -29,7 +29,7 @@ class BoardView extends Component {
 
     componentDidUpdate(prevProps, prevState) {
         const currPage = parseInt(this.props.params.page, 10);
-        const thereAreNoThreadsAndWeAreOnOnlyPage = this.state.pageNum <= 0 && currPage == 0;
+        const thereAreNoThreadsAndWeAreOnOnlyPage = this.state.pageNum <= 0 && currPage === 0;
         if (currPage >= this.state.pageNum && !thereAreNoThreadsAndWeAreOnOnlyPage) {
             // don't let people go over the limit
             this.navigateToPage(0);

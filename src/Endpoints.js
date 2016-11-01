@@ -1,6 +1,9 @@
 const dealWithFetchPromise = (promise, resolve, reject) => {
     promise
     .then(response => {
+        if (response.status === 401) {
+            alert("Invalid authorization!");
+        }
         response
         .json()
         .then(data => {
@@ -26,16 +29,22 @@ class Endpoint {
         }); 
     }
 
-    postData(dataObject) {
+    postData(dataObject, auth) {
         return new Promise((resolve, reject) => {
-            const promise = fetch(this.path, {
+            var fetchProps = {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json; charset=utf-8',
                     'Accept': 'application/json'
                 },
                 body: JSON.stringify(dataObject)
-            });
+            };
+
+            if (auth && auth.username && auth.password) {
+                fetchProps.headers['Authorization'] = 'Basic ' + btoa(auth.username + ':' + auth.password);
+            }
+
+            const promise = fetch(this.path, fetchProps);
             dealWithFetchPromise(promise, resolve, reject);
         }); 
     }
