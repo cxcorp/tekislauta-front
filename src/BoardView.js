@@ -11,6 +11,7 @@ class BoardView extends Component {
 
         this.state = {
             threads: [],
+            totalThreadsOnServer: 0,
             offset: this.offsetFromPage(props.params.page)
         };
     }
@@ -36,15 +37,28 @@ class BoardView extends Component {
         }
     }
 
+    getAmountOfPostsElem() {
+        const amountOfPostsElem = 
+            this.state.totalThreadsOnServer > 0
+                ? (<p>Threads: {this.state.totalThreadsOnServer}</p>)
+                : (<p>No threads yet! Submit a new thread with the form above.</p>);
+        return (
+            <div className="BoardView__totalPostsCounter">
+                {amountOfPostsElem}
+            </div>
+        );
+    }
+
     render() {
         let content = <BoardThreadList threads={this.state.threads} board={this.props.params.board} />;
         if (this.state.threads.length < 1) {
             // no threads here yet
-            content = <p>No threads yet! Submit a new thread with the form above.</p>;
+            content = "";
         }
         return (
             <div className="BoardView">
                 <SubmitForm title="Submit new thread" submit={this.submitResponse.bind(this)} />
+                {this.getAmountOfPostsElem()}
                 <ReactPaginate previousLabel={"<previous"}
                                nextLabel={"next>"}
                                pageNum={this.state.pageNum}
@@ -79,7 +93,8 @@ class BoardView extends Component {
             data.board = board; // silly reply links need this
             this.setState({
                 threads: data.posts,
-                pageNum: Math.ceil(data.total_count / 10)
+                pageNum: Math.ceil(data.total_count / 10),
+                totalThreadsOnServer: data.total_count
             });
         })
         .catch(err => {

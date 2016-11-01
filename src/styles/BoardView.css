@@ -26,3 +26,9 @@
 .break a {
     cursor: default;
 }
+
+.BoardView__totalPostsCounter {
+    font-weight: bold;
+    display: inline;
+    text-align: left;
+}

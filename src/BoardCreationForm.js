@@ -42,10 +42,6 @@ class BoardCreationForm extends Component {
         this.props.submit(this.state);
     }
 
-    componentDidUpdate() {
-        console.log(this.state.abbreviation, this.state.name, this.state.description);
-    }
-
     render() {
         return (
             <div className='BoardCreationForm'>
