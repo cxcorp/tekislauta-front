@@ -64,12 +64,12 @@ const BoardListItem = (props) => {
     const subject = props.latestTopic.subject ? getClampedMessage(props.latestTopic.subject) : "No subject";
     const message = props.latestTopic.message ? getClampedMessage(props.latestTopic.message) : "No message";
     const timestamp = new Date(props.latestTopic.post_time * 1000).toLocaleString("fi-FI");
-    const latestPostUrl = `/boards/${props.board.abbreviation}/${props.latestTopic.id}`;
+    const latestThreadPath = `/boards/${props.board.abbreviation}/threads/${props.latestTopic.id}`;
     return (
       <p>
         <span className="BoardListItem__latestPost__subject">{subject + ' '}</span>
         <span className="BoardListItem__latestPost__message">"{message}"</span>
-        <span> No. <a href={latestPostUrl}>{props.latestTopic.id}</a> </span>
+        <span> No. <Link to={latestThreadPath}>{props.latestTopic.id}</Link> </span>
         <time>{timestamp})</time>
       </p>
     );
@@ -77,7 +77,7 @@ const BoardListItem = (props) => {
   return (
     <tr className="BoardListItem">
       <td className="BoardListItem__property">
-        <Link to= {"/boards/" + props.board.abbreviation + "/"}>
+        <Link to={"/boards/" + props.board.abbreviation + "/"}>
           /{props.board.abbreviation}/ - {props.board.name}
         </Link>
       </td>
