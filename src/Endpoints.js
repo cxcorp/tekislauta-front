@@ -51,8 +51,8 @@ class Endpoint {
 }
 
 export default {
-    Board: (board) => new Endpoint('/api/boards/' + board),
-    Boards: () => new Endpoint('/api/boards/'),
-    Threads: (board) => new Endpoint('/api/boards/' + board + '/posts/'),
-    Replies: (board, topic) => new Endpoint('/api/boards/' + board + '/posts/topics/' + topic)
+    Board: (board) => new Endpoint('/api/api/boards/' + board),
+    Boards: () => new Endpoint('/api/api/boards/'),
+    Threads: (board) => new Endpoint('/api/api/boards/' + board + '/posts/'),
+    Replies: (board, topic) => new Endpoint('/api/api/boards/' + board + '/posts/topics/' + topic)
 };
