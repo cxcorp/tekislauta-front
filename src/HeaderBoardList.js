@@ -10,7 +10,7 @@ class HeaderBoardList extends Component {
   render() {
     let abbreviations = [];
     if (this.state && this.state.data) {
-      abbreviations = this.state.data.map(b => b.abbreviation).sort();
+      abbreviations = this.state.data.map(d => d.board.abbreviation).sort();
     }
     const list = abbreviations.map(abbr => <HeaderBoardListItem abbr={abbr} key={abbr} />);
     return (
