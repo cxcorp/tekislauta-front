@@ -29,13 +29,19 @@ class BoardView extends Component {
 
     componentDidUpdate(prevProps, prevState) {
         const currPage = parseInt(this.props.params.page, 10);
-        if (currPage >= this.state.pageNum) {
+        const thereAreNoThreadsAndWeAreOnOnlyPage = this.state.pageNum <= 0 && currPage == 0;
+        if (currPage >= this.state.pageNum && !thereAreNoThreadsAndWeAreOnOnlyPage) {
             // don't let people go over the limit
             this.navigateToPage(0);
         }
     }
 
     render() {
+        let content = <BoardThreadList threads={this.state.threads} board={this.props.params.board} />;
+        if (this.state.threads.length < 1) {
+            // no threads here yet
+            content = <p>No threads yet! Submit a new thread with the form above.</p>;
+        }
         return (
             <div className="BoardView">
                 <SubmitForm title="Submit new thread" submit={this.submitResponse.bind(this)} />
@@ -51,7 +57,7 @@ class BoardView extends Component {
                                subContainerClassName={"Pagination__pages Pagination"}
                                activeClassName={"Pagination__active"} 
                 />
-                <BoardThreadList threads={this.state.threads} board={this.props.params.board} />
+                {content}
             </div>
         );
     }
