@@ -40,7 +40,7 @@ class BoardView extends Component {
     getAmountOfPostsElem() {
         const amountOfPostsElem = 
             this.state.totalThreadsOnServer > 0
-                ? (<p>Threads: {this.state.totalThreadsOnServer}</p>)
+                ? (<p>Posts: {this.state.totalThreadsOnServer}</p>)
                 : (<p>No threads yet! Submit a new thread with the form above.</p>);
         return (
             <div className="BoardView__totalPostsCounter">
