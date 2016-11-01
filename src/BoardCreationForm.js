@@ -54,7 +54,7 @@ class BoardCreationForm extends Component {
                         <TextBox label="Description" inputName="description" callback={this.handleChange} />
                     </fieldset>
                     <fieldset className="BoardCreationForm__form__fieldset">
-                        <legend>Authorizaton</legend>
+                        <legend>Authorization</legend>
                         <TextBox label="Username" inputName="username" callback={this.handleChange} />
                         <TextBox label="Password" inputName="password" callback={this.handleChange} />
                     </fieldset>
