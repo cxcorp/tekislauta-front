@@ -1,0 +1,40 @@
+.MaintenanceMessageBanner {
+    font-family: 'Roboto', Arial, sans-serif;
+    font-size: 0.9em;
+    display: block;
+    width: 100%;
+    color: #eff6dd;
+    background: #872d2d repeat-x 0 -1px;
+    padding: 0.6em;
+    border-bottom: 1px solid #c15050;
+    box-shadow: rgba(0,0,0,0.1) 0px 1px 3px;
+    overflow: auto;
+    zoom: 1;
+    text-shadow: 0 0 5px rgba(239, 246, 221, 0.2);
+}
+
+.MaintenanceMessageBanner__container {
+    display: inline-block;
+    text-align: center;
+    margin: 0 auto;
+    height: 100%;
+}
+
+.MaintenanceMessageBanner__container__psa {
+    float: left;
+    height: 100%;
+}
+
+.MaintenanceMessageBanner__container__message {
+    float: left;
+    height: 100%;
+}
+
+.MaintenanceMessageBanner a {
+    color: rgba(255, 162, 90, 0.83);
+    text-decoration: none;
+}
+
+.MaintenanceMessageBanner__close {
+    margin-left: 1em;
+}
