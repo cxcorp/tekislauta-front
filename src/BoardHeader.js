@@ -1,9 +1,19 @@
 import React, { Component, PropTypes } from 'react';
+import Helmet from 'react-helmet';
 import Endpoints from './Endpoints';
 import './styles/BoardHeader.css';
 
 class BoardHeader extends Component {
-    componentDidMount() { this.fetchBoardInfo(this.props.params.board); }
+    constructor(props) {
+        super(props);
+        
+        this.state = { title: "Loading..." };
+    }
+    
+    componentDidMount() {
+        top.document.title = 'Loading... - tekislauta';
+        this.fetchBoardInfo(this.props.params.board);
+    }
     componentWillReceiveProps(nextProps) {
         if (nextProps.params.board !== this.props.params.board) {
             this.fetchBoardInfo(nextProps.params.board);
@@ -13,6 +23,7 @@ class BoardHeader extends Component {
     render() {
         return (
             <div className='BoardHeader'>
+                <Helmet title={this.state.title} titleTemplate="%s - tekislauta"/>
                 <div>
                     {this.getContent()}
                 </div>
@@ -37,7 +48,10 @@ class BoardHeader extends Component {
     fetchBoardInfo(board) {
         Endpoints.Board(board).getData()
         .then(data => {
-            this.setState({ info: data });
+            this.setState({
+                info: data,
+                title: `/${data.abbreviation}/ - ${data.name}`
+            });
         })
         .catch(err => {
             console.error(

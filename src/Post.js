@@ -55,7 +55,6 @@ class Post extends Component {
 class ReplyLink extends Component {
   render() {
     const link = `/boards/${this.props.board}/thread/${this.props.postId}`;
-    console.log(this.props);
     if (this.props.onClickFunc !== undefined) {
       return (
         <span className='ReplyLink'>

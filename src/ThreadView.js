@@ -1,10 +1,17 @@
 import React, { Component } from 'react';
+import Helmet from 'react-helmet';
 import Post, { OriginalPost } from './Post';
 import SubmitForm from './SubmitForm';
 import Endpoints from './Endpoints';
 var self;
 
 class ThreadView extends Component {
+    constructor(props) {
+        super(props);
+        
+        this.state = { title: "Loading..." };
+    }
+    
     componentDidMount() { this.fetchPosts(); }
 
     render() {
@@ -21,6 +28,7 @@ class ThreadView extends Component {
 
         return (
             <div className='Thread'>
+                <Helmet title={this.state.title}/>
                 <div className='SubmitFormBox'>
                     <SubmitForm title="Submit new reply" submit={this.submitResponse.bind(this)} callback={inst => self.submitForm = inst} />
                 </div>
@@ -41,9 +49,11 @@ class ThreadView extends Component {
     fetchPosts() {
         Endpoints.Replies(this.props.params.board, this.props.params.thread).getData()
         .then(data => {
-            console.log("Thread::fetchPosts was ok", data);
+            const opMsg = data[0].message;
+            const truncatedMsg = opMsg.length > 32 ? opMsg.substr(0, 32-3) + "..." : opMsg;
             this.setState({
-                posts: data
+                posts: data,
+                title: `/${this.props.params.board}/ - ${truncatedMsg}`
             });
         })
         .catch(err => console.error("ThreadView::fetchPots", "Error while getting posts!", err));
