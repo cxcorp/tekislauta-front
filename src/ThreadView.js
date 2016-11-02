@@ -11,7 +11,7 @@ class ThreadView extends Component {
         self = this;
         let posts = [];
         if (this.state && this.state.posts && this.state.posts.length >= 0) {
-            posts.push(<OriginalPost data={this.state.posts[0]} key={this.state.posts[0].id} board={this.props.abbreviation} onReplyClicked={d => this.handleReplyClick(d)} />);
+            posts.push(<OriginalPost data={this.state.posts[0]} key={this.state.posts[0].id} board={this.props.params.board} onReplyClicked={d => this.handleReplyClick(d)} />);
 
             for (let i = 1; i < this.state.posts.length; i++) {
                 const t = this.state.posts[i];
